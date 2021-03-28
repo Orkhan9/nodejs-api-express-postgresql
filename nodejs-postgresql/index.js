@@ -6,7 +6,14 @@ app.use(express.json()); // => req.body
 //ROUTES//
 
 //get all todos
-
+app.get('/todos',async (req,res)=>{
+    try {
+        const allTodos=await pool.query('SELECT * FROM todo');
+        res.json(allTodos.rows)
+    }catch (e) {
+        console.error(e.message)
+    }
+})
 //create a todo
 app.post('/todos',async (req,res)=>{
     try{
